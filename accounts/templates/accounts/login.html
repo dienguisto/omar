@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %}
+	{% include 'navbar-auth.html' %}
+{% endblock %}
+
+{% block fullcontent %}
+
+    <div class="container py-5">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center py-5">
+
+      <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+              <div class="col-lg-6 d-none d-lg-block text-center pt-4">
+                  <h3> Bienvenu sur : </h3>
+                  <h1 class="navbar-title">
+                	  <a class="navbar-brand font-weight-bold text-dark" href="/"><strong>PROXI<span class="text-danger">Market</span></strong></a>
+                  </h1>
+                  <h6> Que pouvons nous faire pour vous ? </h6>
+                  
+                  <h6> Exprimez votre besoin sur le formulaire de contact, </h6>
+                  
+                  <h6> nos équipes se mettront à votre disposition. </h6>
+                  
+                  <h6> Vos principaux serviteurs ! </h6>
+                  
+              </div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Authentification</h1>
+                  </div>
+                  <form class="user" method="post" action="">
+                      {% csrf_token %}
+                    <div class="form-group">
+                        <input type="email" name="email" id="exampleInputEmail" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Email address" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="exampleInputPassword" class="form-control form-control-user" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                      <div class="custom-control custom-checkbox small">
+                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                        <label class="custom-control-label" for="customCheck">Remember Me</label>
+                      </div>
+                    </div>
+
+                      {% if request.GET.next %}
+                        <input type="hidden" name="next" value="{{ request.GET.next }}">
+                      {% endif %}
+                      {% for field in login_form %}
+                          <p>
+                            {% for error in field.errors %}
+                              <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                          </p>
+                      {% endfor %}
+                      {% if login_form.non_field_errors %}
+                        <div style="color: red">
+                          <p>{{login_form.non_field_errors}}</p>
+                        </div>
+                      {% endif %}
+                    
+		                <div class="form-group">
+		                    <button type="submit" class="btn btn-default btn-user btn-block  text-white">
+		                      Se connecter
+		                    </button>
+			                <a type="button" href="/" class="btn btn-danger btn-user btn-block">
+			                  Accueil
+			                </a>
+		                </div>
+	                
+                    <br/>
+                    <hr>
+                    <!--a href="#" class="btn btn-primary btn-user btn-block">
+                      <i class="fab fa-facebook-f fa-fw"></i> Se connecter avec Facebook
+                    </a>
+                    <a href="#" class="btn btn-danger btn-user btn-block">
+                      <i class="fab fa-google fa-fw"></i> Se connecter avec Google
+                    </a-->
+                  </form>
+                  <hr>
+                  <!--div class="text-center">
+                    <a class="small" href="{% url 'accounts:password_reset' %}">Mot de passe oublié ?</a>
+                  </div-->
+                  <div class="text-center">
+                    <a class="small" href="{% url 'accounts:register' %}">Créer un compte!</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+{% endblock fullcontent %}
+
+

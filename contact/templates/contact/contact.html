@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+
+
+{% block content %}
+
+
+{% block megamenu %}
+{% include 'megamenu.html' %}
+{% endblock %}
+
+
+<div class="container py-5">
+
+ 
+    <!--Section: Content-->
+    <section class="dark-grey-text mb-5 py-5">
+
+      <style>
+        .map-container-section {
+          overflow:hidden;
+          padding-bottom:56.25%;
+          position:relative;
+          height:0;
+        }
+        .map-container-section iframe {
+          left:0;
+          top:0;
+          height:100%;
+          width:100%;
+          position:absolute;
+        }
+      </style>
+
+      <!-- Section heading -->
+      <h3 class="font-weight-bold text-center mb-4 pt-5">Contactez-nous</h3>
+      <!-- Section description -->
+      <p class="text-center w-responsive mx-auto pb-5 text-justify">
+
+      </p>
+
+      <!-- Grid row -->
+      <div class="row py-2">
+
+        <!-- Grid column -->
+        <div class="col-lg-5 mb-lg-0 pb-lg-3 mb-4">
+
+          <!-- Form with header -->
+          <div class="card">
+            <div class="card-body">
+              <!-- Header -->
+              <div class="form-header blue accent-1">
+                <h3 class="mt-2"><i class="fas fa-envelope"></i> Ecrivez-nous:</h3>
+              </div>
+              <p class="dark-grey-text">Nous vous répondrons dans les plus bref délais.</p>
+              <!-- Body -->
+              <form action="" method="post">{% csrf_token %}
+
+              <div class="md-form">
+                <i class="fas fa-user prefix grey-text"></i>
+                <label for="form-name">Votre nom</label>
+                <input type="text" name="Nom" id="form-name" class="form-control">
+              </div>
+              <div class="md-form">
+                <i class="fas fa-envelope prefix grey-text"></i>
+                <label for="form-email">Votre email</label>
+                <input type="text" name="Email" id="form-email" class="form-control">
+              </div>
+              <div class="md-form">
+                <i class="fas fa-tag prefix grey-text"></i>
+                <label for="form-Subject">Objet</label>
+                <input type="text" name="Sujet" id="form-Subject" class="form-control">
+              </div>
+              <div class="md-form">
+                <i class="fas fa-pencil-alt prefix grey-text"></i>
+                <label for="form-text">Ecrivez votre message</label>
+                <textarea id="form-text" name="Message" class="form-control md-textarea" rows="3"></textarea>
+              </div>
+              <div class="mt-4">
+                <button class="btn btn-primary" type="submit">Envoyer</button>
+                <a href="{% url 'home' %}" type="button" class="btn btn-link">Retour</a>
+              </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Form with header -->
+
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-lg-7">
+
+          <!--Google map-->
+          <div id="map-container-section" class="z-depth-1-half map-container-section mb-4" style="height: 515px">
+
+              <section>
+                <iframe src="https://maps.google.com/maps?q=dakar&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                        frameborder="0" style="border:0" allowfullscreen></iframe>
+              </section>
+            </div>
+          <!-- Buttons-->
+          <div class="row text-center">
+            <div class="col-md-4">
+              <a class="btn-floating blue accent-1">
+                <i class="fas fa-map-marker-alt"></i>
+              </a>
+              <p>Dakar, Sénégal</p>
+            </div>
+            <div class="col-md-4">
+              <a class="btn-floating blue accent-1">
+                <i class="fas fa-phone"></i>
+              </a>
+              <p>+ 221 33 837 79 23</p>
+            </div>
+            <div class="col-md-4">
+              <a class="btn-floating blue accent-1">
+                <i class="fas fa-envelope"></i>
+              </a>
+              <p class="mb-0">contact@proximarket.com</p>
+            </div>
+          </div>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </section>
+    <!--Section: Content-->
+
+
+  </div>
+      
+    {% endblock %}

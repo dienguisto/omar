@@ -1,0 +1,16 @@
+.customOver:hover {
+	background-color: #6d26a0 !important;
+}
+
+.customColor {
+	color:  #6d26a0 !important;
+}
+
+
+.customBackgroundColor {
+	background-color:  #6d26a0 !important;
+}
+
+.required {
+	color: red;
+}

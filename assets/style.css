@@ -1,0 +1,46 @@
+
+
+/*
+nav.float-panel {
+    background-color: #b2a9a9;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px 0;
+    box-shadow: #b2a9a9;
+    background: linear-gradient(#fff, #ededef);
+}*/
+
+
+/*
+
+header{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px 0;
+    background-color: green;
+}
+*/
+/* Style the navbar */
+#float-panel {
+  overflow: hidden;
+  /*background-color: #b10b0b;*/
+}
+
+/* Navbar links */
+/*#float-panel ul {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}*/
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index:300;
+  transform: translateZ(0);
+  transition:all 0.5s;
+}

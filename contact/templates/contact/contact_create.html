@@ -1,0 +1,23 @@
+{% extends 'base_admin.html' %}
+{% load bootstrap %}
+
+
+
+{% block fullcontent %}
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <h1 class="mt-2">Mis à jour contact</h1>
+          <hr class="mt-0 mb-4">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form | bootstrap_horizontal:'col-lg-3' }}
+          <button type="submit"  class="btn btn-primary">Envoyer</button>
+        </form>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
+  

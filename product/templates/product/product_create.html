@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block navbar %}
+{% include 'admin/navbar_admin.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+
+
+{% block sidebar %}
+{% include 'admin/sidebar_admin.html' %}
+{% endblock %}
+
+
+<div class="container-fluid py-2">
+
+
+    <!--Section: Content-->
+    <section class="dark-grey-text">
+
+        <!-- Section heading -->
+        <h3 class="font-weight-bold text-center"></h3>
+        <!-- Section description -->
+        <p class="text-center w-responsive mx-auto pb-5 text-justify">
+
+        </p>
+
+        <!-- Grid row -->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-lg-8 mx-auto">
+
+                <!-- Form with header -->
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Header -->
+                        <div class="form-header bg-default accent-1">
+                            <h3 class="mt-2"><i class="fas fa-purchase"></i> Création produit </h3>
+                        </div>
+                        <!-- Body -->
+        <form  action="{% url 'product:createProduit' %}"  method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for hidden_field in form.hidden_fields %}
+            {{ hidden_field }}
+        {% endfor %}
+
+
+            <div class="row">
+
+                {% for field in form %}
+                        {% if forloop.last %}
+                        <div class="col-md-12">
+                            <div class="md-form mb-0">
+                                {{ field.errors }}
+                                {{ field }}
+                            </div>
+                        </div>
+                        {% elif forloop.counter0|divisibleby:"2" %}
+                        <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    {{ field.errors }}
+                                     {{ field }}
+                                </div>
+                        </div>
+                        {% else %}
+                        <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    {{ field.errors }}
+                                    {{ field }}
+                                </div>
+                        </div>
+                        {% endif %}
+                {% endfor %}
+            </div>
+            <div class="row">
+                {{ formset.management_form }}
+                {% for f in formset %}
+                    <div class="form-group">
+                    {{ f }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="row mt-1">
+                <div class="col-md-12 text-right">
+                    <a href="/" type="button" class="btn text-dark">Retour</a>
+                    <input value="Enregistrer" class="btn btn-danger" type="submit"/>
+                </div>
+            </div>
+        </form>
+
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+    </section>
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+

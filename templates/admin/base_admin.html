@@ -1,0 +1,59 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Proximarket</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--link rel="stylesheet" href="{% static 'admin/main.css' %}">
+    <link rel="stylesheet" href="{% static 'template/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/-->
+
+	<!--script src="{% static 'template/js/jquery.min.js' %}"></script>
+	
+	<script src="{% static 'admin/js/bootstrap.bundle.min.js' %}"></script>
+	
+	<script src="{% static 'admin/js/main.js' %}"></script-->
+	
+	  <link rel="stylesheet"  href="{% static 'admin/css/all.css' %}">
+	  <link rel="stylesheet"  href="{% static 'admin/css/bootstrap.css' %}">
+	  <link rel="stylesheet"  href="{% static 'admin/css/mdb.css' %}">
+	  <link rel="stylesheet"  href="{% static 'css/style.css' %}">
+	  <link rel="stylesheet"  href="{% static 'css/mdb.admin.min.css' %}">
+	  <link rel="stylesheet"  href="{% static 'css/jquery-ui.css' %}" media="all">
+
+	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+	  
+	  <script type="text/javascript" src="{% static 'admin/js/jquery.js' %}"></script>
+	  <script type="text/javascript" src="{% static 'admin/js/popper.js' %}"></script>
+	  <script type="text/javascript" src="{% static 'admin/js/bootstrap.js' %}"></script>
+	  <script type="text/javascript" src="{% static 'admin/js/mdb.js' %}"></script>
+	  <script type="text/javascript" src="{% static 'js/js-cookie.js' %}"></script>
+</head>
+<body>
+{% block navbar %}
+	{% include 'admin/navbar_admin.html' %}
+{% endblock %}
+
+{% block sidebar %}
+	{% include 'admin/sidebar_admin.html' %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+
+{% block script %}
+{% endblock %}
+</body>
+</html>

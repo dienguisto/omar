@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %}
+	{% include 'navbar.html' %}
+{% endblock %}
+
+{% block fullcontent %}
+
+{% block megamenu %}
+	{% include 'megamenu.html' %}
+{% endblock %}
+
+<!-- Main layout -->
+ <main>
+   <div class="container">
+
+     <!-- Section: Edit Account -->
+     <section class="section py-4">
+       <!-- First row -->
+       <div class="row">
+
+         <!-- Second column -->
+         <div class="col-lg-12 mb-4">
+
+           <!-- Card -->
+           <div class="card card-cascade narrower">
+
+             <!-- Card image -->
+             <div class="view view-cascade gradient-card-header bg-default lighten-3">
+               <h5 class="mb-0 font-weight-bold text-white">Mes informations</h5>
+             </div>
+             <!-- Card image -->
+               <a href="{% url 'accounts:password_change' %}" type="button" class="btn btn-outline-danger btn-sm ">
+                   Changer mon mot de passe
+               </a>
+             <!-- Card content -->
+             <div class="card-body card-body-cascade text-center">
+
+               <!-- Edit Form -->
+                 <form method="post" action="." enctype="multipart/form-data">
+                     {% csrf_token %}
+
+                     <input src="{{ user.profil.image.url }}"    name="image" type="file" id="image" class="form-control">
+                 <!-- First row -->
+				<div class="mb-3 mx-auto row" style="width:150px; height:150px;">
+
+                    <img src="{{ user.profil.image.url }}" alt="User Photo" class="avatar rounded-circle z-depth-1-half mb-3  w-100 h-100">
+
+                </div>
+
+                 <div class="row">
+
+                   <!-- First column -->
+                   <div class="col-md-6">
+                     <div class="md-form mb-0">
+                         <label for="form1" class="col-sm-12 col-form-label">Email</label>
+                         <input value="{{ user.email }}" name="email" type="text" id="form1" class="form-control" disabled>
+
+                     </div>
+                   </div>
+                   <!-- Second column -->
+                   <div class="col-md-6">
+                     <div class="md-form mb-0">
+                         <label for="form2" class="col-sm-12 col-form-label">Username</label>
+                       <input value="{{ user.username }}" name="username" type="text" id="form2" class="form-control">
+
+                     </div>
+                   </div>
+                 </div>
+                 <!-- First row -->
+
+                 <!-- First row -->
+                 <div class="row">
+                   <!-- First column -->
+                   <div class="col-md-6">
+                     <div class="md-form mb-0">
+                         <label for="form1" class="col-sm-12 col-form-label">Prénom</label>
+                       <input  value="{{ user.firstname }}" name="firstname" type="text" id="form81" class="form-control">
+
+                     </div>
+                   </div>
+
+                   <!-- Second column -->
+                   <div class="col-md-6">
+                     <div class="md-form mb-0">
+                         <label for="form1" class="col-sm-12 col-form-label">Nom</label>
+                       <input value="{{ user.lastname }}" name="lastname" type="text" id="form82" class="form-control">
+                     </div>
+                   </div>
+                 </div>
+                 <!-- First row -->
+
+                 <!-- Second row -->
+                 <div class="row">
+
+                   <!-- First column -->
+                   <div class="col-md-6">
+                     <div class="md-form mb-0">
+                         <label for="form1" class="col-sm-12 col-form-label">Adresse</label>
+                       <input  value="{{ user.addressseller }}" name="addressseller" type="text" id="form76" class="form-control">
+                     </div>
+                   </div>
+                   <!-- Second column -->
+
+                   <div class="col-md-6">
+                     <div class="md-form mb-0">
+                         <label for="form1" class="col-sm-12 col-form-label">Téléphone</label>
+                       <input value="{{ user.telephone }}" name="telephone" type="text" id="form77" class="form-control">
+                     </div>
+                   </div>
+                 </div>
+                 <!-- Second row -->
+
+                 <!-- Fourth row -->
+                 <div class="row">
+                   <div class="col-md-12 text-center my-4">
+                     <input type="submit" value="Mettre à jour" class="btn btn-danger btn-rounded">
+                   </div>
+                 </div>
+                 <!-- Fourth row -->
+
+               </form>
+               <!-- Edit Form -->
+
+             </div>
+             <!-- Card content -->
+
+           </div>
+           <!-- Card -->
+
+         </div>
+         <!-- Second column -->
+
+       </div>
+       <!-- First row -->
+
+     </section>
+     <!-- Section: Edit Account -->
+
+
+	<section class="section">
+       <!-- First row -->
+       <div class="row">
+       
+         <!-- First column -->
+         <div class="col-lg-12 mb-4">
+
+           <!-- Card -->
+           <div class="card card-cascade narrower">
+
+             <!-- Card image -->
+             <div class="view view-cascade gradient-card-header bg-default lighten-3">
+               <h5 class="mb-0 font-weight-bold text-white">Historique commande</h5>
+             </div>
+             <!-- Card image -->
+
+             <!-- Card content -->
+             <div class="card-body card-body-cascade text-center">
+
+               <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
+				  <thead>
+				    <tr>
+				      <th class="th-sm">N° Référence
+				      </th>
+				      <th class="th-sm">Date
+				      </th>
+				      <th class="th-sm">Montant
+				      </th>
+				    </tr>
+				  </thead>
+				  <tbody>
+                  {% for order in orders %}
+				    <tr>
+				      <td>{{ order.ref_code }}</td>
+				      <td>{{ order.ordered_date }}</td>
+				      <td>{{ order.get_total }} F Cfa</td>
+				    </tr>
+                  {% endfor %}
+
+				    
+				  </tbody>
+				</table>
+
+             </div>
+             <!-- Card content -->
+
+           </div>
+           <!-- Card -->
+
+         </div>
+         <!-- First column -->
+
+         
+
+       </div>
+       <!-- First row -->
+
+     </section>
+   </div>
+
+ </main>
+ <!-- Main layout -->
+
+<style>
+label {
+    color: #808080 !important;
+    font-family: family-name Cursive;
+    font-style: italic;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'admin/base_admin.html' %}
+{% block titre %} {{ block.super }} - Catégorie {% endblock %}
+
+{% block navbar %}
+{% include 'admin/navbar_admin.html' %}
+{% endblock %}
+
+
+{% block sidebar %}
+{% include 'admin/sidebar_admin.html' %}
+{% endblock %}
+
+{% block footer %}
+{% include 'admin/footer_admin.html' %}
+{% endblock %}
+{% block content %}
+
+<div class="container-fluid py-2">
+
+
+    <!--Section: Content-->
+    <section class="dark-grey-text">
+
+        <!-- Section heading -->
+        <h3 class="font-weight-bold text-center"></h3>
+        <!-- Section description -->
+        <p class="text-center w-responsive mx-auto pb-5 text-justify">
+
+        </p>
+
+        <!-- Grid row -->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-lg-8 mx-auto">
+
+                <!-- Form with header -->
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Header -->
+                        <div class="form-header bg-default accent-1">
+                            <h3 class="mt-2"><i class="fas fa-purchase"></i> Création categorie </h3>
+                        </div>
+                        <!-- Body -->
+
+                        <form id="product-form" name="product-form" action="."  method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <div class="text-center mx-auto">
+                                {% if form.subject.errors %}
+                                <ol role="">
+                                    {% for error in form.subject.errors %}
+                                    <li role="alert"><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                </ol>
+                                {% endif %}
+                            </div>
+
+                            <!-- Vertical Steppers -->
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <!-- Stepers Wrapper -->
+                                    <ul class="stepper stepper-vertical">
+                                        <div class="md-form mb-0">
+
+
+
+                                            <!-- Section Description -->
+                                            <div class="step-content w-100 px-4 mx-auto white lighten-3 row">
+                                                {% for field in form %}
+                                                {{ field }}
+                                                {% endfor %}
+
+                                            </div>
+                                        </div>
+
+
+                                    </ul>
+                                    <!-- /.Stepers Wrapper -->
+
+                                </div>
+                            </div>
+
+                            <!-- Steppers Navigation -->
+                            <div class="row mt-1">
+                                <div class="col-md-12 text-right">
+                                    <a href="/" type="button" class="btn text-dark">Retour</a>
+                                    <button class="btn btn-danger" type="submit">Enregistrer</button>
+                                </div>
+                            </div>
+                            <!-- /.Vertical Steppers -->
+
+                        </form>
+                    </div>
+
+                </div>
+
+                <!-- Form with header -->
+
+            </div>
+
+        </div>
+        <!-- Grid row -->
+
+    </section>
+    <!--Section: Content-->
+
+
+</div>
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+

@@ -1,0 +1,125 @@
+{% extends 'admin/base_admin.html' %}
+{% block titre %} {{ block.super }} - Commande {% endblock %}
+
+{% block navbar %}
+{% include 'admin/navbar_admin.html' %}
+{% endblock %}
+
+
+{% block sidebar %}
+{% include 'admin/sidebar_admin.html' %}
+{% endblock %}
+
+{% block footer %}
+{% include 'admin/footer_admin.html' %}
+{% endblock %}
+{% block content %}
+
+<div class="container">
+<h2 align="center">Detail Commande</h2>
+    <div class="row">
+
+
+            <div class="col-md-5">
+                <div  class="tab-content">
+
+
+                    <!-- Profile Image -->
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+
+
+                            <h3 class="profile-username text-center">{{ order.user  }}</h3>
+
+                            <p class="text-muted text-center"></p>
+
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Utilisateur</b> <a class="float-right">{{ order.user.fullname }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Ref Code</b> <a class="float-right">{{ order.ref_code }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Date de la commande</b> <a class="float-right">{{ order.ordered_date |date:"l d F Y" }} {{ order.ordered_date|time:"H:i" }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Validé</b> <a class="float-right">{% if order.ordered %} Oui {% else %} Non{% endif %}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Adresse d'expedition</b> <a class="float-right">{{ order.shipping_address }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Adresse de facturation</b> <a class="float-right">{{ order.billing_address }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Reçu</b> <a class="float-right">{% if order.received %} Oui {% else %} Non{% endif %}</a>
+                                </li>
+                            </ul>
+
+                            <a href="#" class="btn btn-primary btn-block"><b></b></a>
+                            <a href="{% url 'product:editOrder' order.id %}" style="text-decoration: none;" ><i class="fa fa-edit" style="font-size:24px"></i></a>
+                            <a href="{% url 'product:deleteOrder' order.id %}" style="text-decoration: none" onclick="return confirm('Voulez-vous vraiment supprimer l''gence {{ order.title }} ?');"><i class="fa fa-trash" style="font-size:24px"></i></a>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        <div class="col-md-7">
+            <div  class="tab-content">
+
+
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+
+
+                        <h3 class="profile-username text-center">Produits</h3>
+
+                        <p class="text-muted text-center"></p>
+
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <table>
+                                {% for order_item in order.items.all %}
+                                <tr>
+
+                                    <td>{{ order_item.item.title }} </td>
+                                    <td>{{ order_item.item.price }} </td>
+                                    <td>{{ order_item.item.purchase_price }} </td>
+                                    <td>{{ order_item.item.sale_price }} </td>
+                                    <td>{{ order_item.item.provider }} </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </ul>
+
+                        <a href="#" class="btn btn-primary btn-block"><b></b></a>
+                        <a href="{% url 'product:editOrder' order.id %}" style="text-decoration: none;" ><i class="fa fa-edit" style="font-size:24px"></i></a>
+                        <a href="{% url 'product:deleteOrder' order.id %}" style="text-decoration: none" onclick="return confirm('Voulez-vous vraiment supprimer l''gence {{ order.title }} ?');"><i class="fa fa-trash" style="font-size:24px"></i></a>
+
+                    </div>
+                </div>
+
+             </div>
+
+
+         </div>
+
+
+
+
+      </div>
+</div>
+
+
+
+
+
+
+
+{% endblock %}
+
+

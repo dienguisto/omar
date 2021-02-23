@@ -1,0 +1,115 @@
+{% extends 'base_admin.html' %}
+
+{% load static %}
+
+{% block css %} 
+<style type="text/css">
+    .is_finish{
+        pointer-events: none;
+    }
+</style>
+{% endblock %}
+
+{% block fullcontent %}
+<div class="container">
+    <h2>Inbox</h2>
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+                <div class="card-body box-profile">
+                    <div class="text-center">
+                        <img class="profile-user-img img-fluid img-circle"
+                       src="{% static 'images/default.png' %}" alt="My image">
+                    </div>
+
+                    <h3 class="profile-username text-center">{{ contact.Nom }}</h3>
+
+                    <p class="text-muted text-center">{{ contact.Email }}</p>
+
+                    <ul class="list-group list-group-unbordered mb-3">
+                        <li class="list-group-item">
+                            <b>Date</b> <a class="float-right">{{ contact.Date_modification |date:" d M Y"}}</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Heure</b> <a class="float-right">{{ contact.Date_modification |time:"h:i" }}</a>
+                        </li>
+                    </ul>
+
+                    <a href="#" class="btn btn-primary btn-block"><b></b></a>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+
+        </div>
+
+        <div class="col-md-8">
+            <!-- About Me Box -->
+            <div class="card card-primary">
+                <div class="card-header d-flex justify-content-between">
+                    <div><h3 class="card-title">Message</h3></div>
+                    <div>
+                     {% if not contact.is_treat %}
+                     <a href="{% url 'contact:treatContact' contact.id %}" class="btn btn-primary">
+                        Traiter le message
+                     </a>
+                     {% endif %}
+                    {% if contact.is_treat and not contact.is_finish %}
+                     <a href="{% url 'contact:finishContact' contact.id %}" class="btn btn-success">Terminer le proceesus
+                    </a>
+                    {% endif %}
+                </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <strong align="center"><i class="fas fa-map-marker-alt mr-1"></i> Objet</strong>
+
+                    <p class="text-center">
+                        {{ contact.Sujet }}
+                    </p>
+
+                    <hr>
+
+                    <strong><i class="fas fa-envelope mr-1"></i> Message</strong>
+
+                    <p class="text-muted">{{ contact.Message }}</p>
+
+                    <hr>
+
+
+
+                    <hr>
+                    <div><i class="far fa-file-alt mr-1"></i> État :
+                    {% if not contact.is_treat and not contact.is_finish %}
+                    <span class="badge badge-warning">Non traité</span>
+                    {% elif contact.is_treat and not contact.is_finish %}
+                     <span class="badge badge-primary">En cours</span>
+                    {% elif contact.is_treat and  contact.is_finish %}
+                     <span class="badge badge-success">Terminé</span>
+                    {% else %}
+                    {% endif %}
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+</div>
+</div>
+
+{% endblock %}
+{% block script %} 
+<script src="{% static 'admin/js/adminlte.min.js' %}"></script>
+{% endblock %}
+
+
+<!-- jQuery -->
+<!-- Bootstrap 4 -->
+

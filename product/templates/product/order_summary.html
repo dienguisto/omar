@@ -1,0 +1,401 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+	{% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+{% block megamenu %}
+	{% include 'megamenu.html' %}
+{% endblock %}
+
+<div class="container pt-4 alertCustom">
+ {% if messages %}
+     {% for message in messages %}
+     <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+       {{ message }}
+       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     {% endfor %}
+ {% endif %}
+</div>
+  <!--main>
+    <div class="container">
+
+    <div class="table-responsive text-nowrap">
+    <h2>Commande</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Photo</th>
+            <th scope="col">Produit</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order_produit in object.produits.all %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>
+                <span class="d-block mr-2" style="width: 64px; height: 64px">
+                    <img style="width: 100%;height: 100%;" src="{{ order_produit.produit.myphoto.photo.url }}" alt="Product"/>
+                </span>
+            </td>
+            <td>{{ order_produit.produit.title }}</td>
+            <td>{{ order_produit.produit.price }}</td>
+            <td>
+                <a href="{% url 'product:remove_single_produit_from_cart' order_produit.produit.pk %}"><i class="fas fa-minus mr-2"></i></a>
+                {{ order_produit.quantity }}
+                <a href="{% url 'product:add-to-cart' order_produit.produit.pk %}"><i class="fas fa-plus ml-2"></i></a>
+            </td>
+            <td>
+            {% if order_produit.produit.discount_price %}
+                {{ order_produit.get_total_discount_produit_price }} Fcfa
+                <span class="badge badge-primary">Saving ${{ order_produit.get_amount_saved }}</span>
+            {% else %}
+                ${{ order_produit.get_total_produit_price }}
+            {% endif %}
+            <a style='color: red;' href="{% url 'product:remove-from-cart' order_produit.produit.pk %}">
+                <i class="fas fa-trash float-right"></i>
+            </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan='5'>Votre panier est vide</td>
+        </tr>
+        <tr>
+            <td colspan="5">
+            <a class='btn btn-primary float-right' href='/'>Continuer vos achats</a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% if object.coupon %}
+        <tr>
+            <td colspan="4"><b>Coupon</b></td>
+            <td><b>-{{ object.coupon.amount }} Fcfa</b></td>
+        </tr>
+        {% endif %}
+        {% if object.get_total %}
+        <tr>
+            <td colspan="5"><b>Total commande</b></td>
+            <td><b>{{ object.get_total }} Fcfa</b></td>
+        </tr>
+        <tr>
+            <td colspan="6">
+            <a class='btn btn-default float-right ml-2 text-white' href='/checkout/'>Passer à la caisse</a>
+            <a class='btn float-right' href='/'>Continuer mes achats</a>
+            </td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    </div>
+
+    </div>
+  </main-->
+
+
+  <!--Main Layout-->
+  <main>
+
+    <!-- Main Container -->
+    <div class="container">
+
+      <!-- Section cart -->
+      <section class="section my-5 pb-5">
+
+        <div class="card card-ecommerce">
+          <div class="card-body">
+
+            <!-- Shopping Cart table -->
+            <div class="table-responsive">
+
+              <table class="table product-table  text-nowrap">
+
+                <!-- Table head -->
+                <thead class="mdb-color lighten-5">
+                  <tr>
+                    <th></th>
+                    <th class="font-weight-bold" scope="col">
+                      <strong>Produit</strong>
+                    </th>
+                    <th class="font-weight-bold" scope="col">
+                      <strong>Prix</strong>
+                    </th>
+                    <th class="font-weight-bold" scope="col">
+                      <strong>QTE</strong>
+                    </th>
+                    <th class="font-weight-bold" scope="col">
+                      <strong>Montant</strong>
+                    </th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <!-- /.Table head -->
+
+                <!-- Table body -->
+                <tbody>
+
+        		  {% for order_produit in object.produits.all %}
+        		  
+		                  <tr>
+		                    <th scope="row">
+		                      <img src="{{ order_produit.produit.image.url }}" alt="" class="img-fluid z-depth-0">
+		                    </th>
+		                    <td>
+		                      <h5 class="mt-3">
+		                        <strong>{{ order_produit.produit.title }}</strong>
+		                      </h5>
+		                      <!--p class="text-muted">Apple</p-->
+		                    </td>
+		                    <td>{{ order_produit.produit.price }} fcfa</td>
+		                    <td class="text-center text-md-left">
+		                      
+                					<a href="{% url 'product:remove_single_produit_from_cart' order_produit.produit.pk %}" class="btn btn-sm btn-rounded"><i class="fas fa-minus"></i></a>
+		                       
+		                            <strong class="font-weight-bold px-2">{{ order_produit.quantity }}</strong>
+		                       
+                					<a href="{% url 'product:add-to-cart-quick' order_produit.produit.pk %}" class="btn btn-sm btn-rounded"><i class="fas fa-plus"></i></a>
+		                        
+		                    </td>
+		                    <td class="font-weight-bold">
+		                      <strong>
+		                      	{% if order_produit.produit.discount_price %}
+					                {{ order_produit.get_total_discount_produit_price }} fcfa
+					                <span class="badge badge-primary">Saving ${{ order_produit.get_amount_saved }}</span>
+					            {% else %}
+					                {{ order_produit.get_total_produit_price }} fcfa
+					            {% endif %}
+		                      </strong>
+		                    </td>
+		                    <td>
+		                      <!--button type="button" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top"
+		                        title="Supprimer cet article">X
+		                      </button-->
+					            <a style='color: red;' href="{% url 'product:remove-from-cart' order_produit.produit.pk %}">
+					                <i class="fas fa-trash float-right"></i>
+					            </a>
+		                    </td>
+		                  </tr>
+
+				        {% empty %}
+				        <tr>
+				            <td colspan="5" align="center" class="text-danger"><h4>Votre panier est vide</h4></td>
+				        </tr>
+				        <tr>
+				            <td colspan="5">
+				            <a class="btn btn-default float-right text-white" href="/">Continuer vos achats</a>
+				            </td>
+				        </tr>
+				        {% endfor %}
+				        {% if object.coupon %}
+				        <tr>
+				            <td colspan="4"><b>Coupon</b></td>
+				            <td><b>-{{ object.coupon.amount }} Fcfa</b></td>
+				        </tr>
+				        {% endif %}
+				        {% if object.get_total %}
+					        
+			                  <tr>
+			                    <td>
+			                      <h4 class="mt-2 float-right">
+			                        <strong>Total:</strong>
+			                      </h4>
+			                    </td>
+			                    <td class="text-right">
+			                      <h4 class="mt-2 float-left">
+			                        <strong>{{ object.get_total }}</strong>
+			                      </h4>
+			                    </td>
+			                    <td></td>
+			                    <td  class="text-right">
+					               <a class='btn float-right' href='/'>Shopping</a>
+			                    </td>
+			                    <td  class="text-right">
+			                      <a type="button" class="btn btn-default text-white" type="button" href="{% url 'product:checkout' %}">Terminer
+			                      </a>
+			                    </td>
+			                  </tr>
+			                  
+				        {% endif %}
+                </tbody>
+                <!-- /.Table body -->
+
+              </table>
+
+            </div>
+            <!-- /.Shopping Cart table -->
+
+          </div>
+
+        </div>
+
+      </section>
+      <!-- /Section cart -->
+
+      <!-- Section products -->
+      <section>
+        <h4 class="font-weight-bold mt-4 title-1">
+          <strong>CES ARTICLES POURRAIENT VOUS INTERESSES</strong>
+        </h4>
+        <hr class="blue mb-5">
+
+        <!-- Grid row -->
+        <div class="row mb-3">
+
+
+			 {% for produit in interestedItems %}
+		          <!--Grid column-->
+		          <div class="col-lg-3 col-md-6 mb-4">
+		
+		            <!--Card-->
+		            <div class="card card-ecommerce">
+		
+		              <!--Card image-->
+		              <div class="view overlay">
+		                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid"
+		                  alt="">
+		                <a>
+		                  <div class="mask rgba-white-slight"></div>
+		                </a>
+		              </div>
+		              <!--Card image-->
+		
+		              <!--Card content-->
+		              <div class="card-body">
+		                <!--Category & Title-->
+		
+		                <h5 class="card-title mb-1">
+		                  <strong>
+		                    <a href="" class="customColor">Sony D74v</a>
+		                  </strong>
+		                </h5>
+		                <span class="badge badge-info mb-2">new</span>
+		                
+		
+		                <!--Card footer-->
+		                <div class="card-footer pb-0">
+		                  <div class="row mb-0 customColor">
+		                    <span class="float-left">
+		                      <strong>1439$</strong>
+		                    </span>
+		                    <span class="float-right">
+		                      <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+		                        <i class="fas fa-shopping-cart ml-3"></i>
+		                      </a>
+		                    </span>
+		                  </div>
+		                </div>
+		
+		              </div>
+		              <!--Card content-->
+		
+		            </div>
+		            <!--Card-->
+		
+		          </div>
+		          <!--Grid column-->
+		        {% endfor %}
+
+        </div>
+        <!--Grid row-->
+
+         
+
+        <!--Grid row-->
+        <div class="row mb-5">
+        
+ 		  <p>
+            <a class="btn btn-danger btn-rounded mb-5 text-white" data-toggle="collapse" href="#collapseExample1" aria-expanded="false"
+              aria-controls="collapseExample1">Plus de produits</a>
+          </p>
+          
+			
+				 
+		
+            <!-- Grid row -->
+            <div class="row">
+          
+            <div class="collapse" id="collapseExample1">
+
+			    {% for produit in best_sellers%}
+		              <!--Grid column-->
+		              <div class="col-lg-3 col-md-6 mb-4">
+		
+		                <!--Card-->
+		                <div class="card card-ecommerce">
+		
+		                  <!--Card image-->
+		                  <div class="view overlay">
+		                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/3.jpg" class="img-fluid"
+		                      alt="">
+		                    <a>
+		                      <div class="mask rgba-white-slight"></div>
+		                    </a>
+		                  </div>
+		                  <!--Card image-->
+		
+		                  <!--Card content-->
+		                  <div class="card-body">
+		                    <!--Category & Title-->
+		
+		                    <h5 class="card-title mb-1">
+		                      <strong>
+		                        <a href="" class="dark-grey-text">Asus GR-597</a>
+		                      </strong>
+		                    </h5>
+		                    <span class="badge badge-danger mb-2">bestseller</span>
+		                    
+		
+		                    <!--Card footer-->
+		                    <div class="card-footer pb-0">
+		                      <div class="row mb-0">
+		                        <span class="float-left">
+		                          <strong>1439$</strong>
+		                        </span>
+		                        <span class="float-right">
+		                          <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+		                            <i class="fas fa-shopping-cart ml-3"></i>
+		                          </a>
+		                        </span>
+		                      </div>
+		                    </div>
+		
+		                  </div>
+		                  <!--Card content-->
+		
+		                </div>
+		                <!--Card-->
+		
+		              </div>
+		              <!--Grid column-->
+		          {% endfor %}
+
+            </div>
+            <!--Grid row-->
+
+          </div>
+
+        </div>
+        <!--Grid row-->
+
+      </section>
+      <!-- Section products -->
+
+    </div>
+    <!-- /.Main Container -->
+
+  </main>
+  <!--Main Layout-->
+
+{% endblock content %}
+
+

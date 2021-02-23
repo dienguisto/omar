@@ -1,0 +1,100 @@
+{% block sidebar %}
+<!-- Sidebar navigation -->
+    <!--div class="side-nav bg-white fixed" id="navbarSupportedContent-4">
+      <ul class="custom-scrollbar">
+
+        <li class="logo-sn waves-effect py-3 bg-white">
+          <div class="text-center">
+            <a class="navbar-brand font-weight-bold text-dark" href="/back_office"><strong>PROXI<span class="text-danger">Market</span></strong></a>
+          </div>
+        </li>
+
+        <li>
+          <form class="search-form" role="search">
+            <div class="md-form mt-0 bg-grey">
+              <input type="text" class="form-control py-2 bg-default" placeholder="Recherche...">
+            </div>
+          </form>
+        </li>
+       
+        <li>
+          <ul class="collapsible collapsible-accordion">
+
+            <li>
+              <a class="collapsible-header waves-effect arrow-r text-dark" href="{% url 'back_office:home' %}">
+                <i class="w-fa fas fa-tachometer-alt"></i>Dashboards
+              </a>
+            </li>
+            
+            <li>
+              <a class="collapsible-header waves-effect arrow-r text-dark" href="{% url 'product:indexProduit' %}">
+                <i class="w-fa fas fa-tachometer-alt"></i>Produits
+              </a>
+            </li>
+            
+            <li>
+              <a class="collapsible-header waves-effect arrow-r text-dark" href="{% url 'product:indexOrder' %}">
+                <i class="w-fa fas fa-shopping-cart"></i>Commandes
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+
+      </ul>
+      <div class="sidenav-bg mask-strong"></div>
+    </div-->
+    <!-- Sidebar navigation -->
+<!-- Mega menu -->
+    <div class="container mt-5 pt-3">
+
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg mt-5 navbar-light">
+
+            <!-- Collapse button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent-4"
+                aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+
+                <ul class="navbar-nav mx-auto">
+                     <li class="nav-item" {% if classe_active == 'dashboard' %} style="border-bottom: solid #6d26a0;"{% endif %}>
+                         <a class="nav-link" href="{% url 'back_office:home' %}" style="font-weight: bold;">
+                                        <span>Dashboards</span>
+                         </a>
+                     </li>
+                     <li class="nav-item border-left" {% if classe_active == 'produit' %} style="border-bottom: solid #6d26a0;"{% endif %}>
+                         <a class="nav-link" href="{% url 'product:indexProduit' %}" style="font-weight: bold;">
+                                        <span>Produits</span>
+                            </a>
+                      </li>
+                      <li class="nav-item border-left" {% if classe_active == 'order' %} style="border-bottom: solid #6d26a0;"{% endif %}>
+                           <a class="nav-link" href="{% url 'product:indexOrder' %}" style="font-weight: bold;">
+                                        <span>Commandes </span>
+                            </a>
+                      </li>
+                    <li class="nav-item border-left" {% if classe_active == 'categorie' %} style="border-bottom: solid #6d26a0;"{% endif %}>
+                    <a class="nav-link" href="{% url 'categorie:indexCategorie' %}" style="font-weight: bold;">
+                        <span>Catégorie </span>
+                    </a>
+                    </li>
+            		</ul>
+                <!-- Links -->
+
+                <!-- Search form -->
+                <form class="search-form" role="search">
+                    <div class="form-group md-form my-0 waves-light">
+                        <input type="text" class="form-control" placeholder="Recherche">
+                    </div>
+                </form>
+            </div>
+            <!-- Collapsible content -->
+
+        </nav>
+        <!--/.Navbar-->
+
+    </div>
+    <!-- Mega menu -->
+{% endblock %}

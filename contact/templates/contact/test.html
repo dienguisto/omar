@@ -1,0 +1,4 @@
+
+                    {% if user.is_admin %} <p class="text-muted"><a href="#" class="btn btn-success"><b>Encours</b></a>{% endif %}
+                    {% if user.is_staff %} <a href="#" class="btn btn-primary"><b>Non traitÃ©</b></a>{% endif %}
+                    {% if user.is_super_admin %} <a href="#" class="btn btn-secondary"><b>TerminÃ©</b></a>{% endif %}

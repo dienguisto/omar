@@ -1,0 +1,132 @@
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+{% block navbar %}
+{% include 'admin/navbar_admin.html' %}
+{% endblock %}
+
+
+{% block sidebar %}
+{% include 'admin/sidebar_admin.html' %}
+{% endblock %}
+
+{% block footer %}
+{% include 'admin/footer_admin.html' %}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}"/>
+{% endblock %}
+
+{% block content %}
+<div class="container pt-4 alertCustom">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+<div class="container py-2">
+
+    <h2 align="center" class="customColor pt-2">Liste des produits</h2>
+
+
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <a href="{% url 'product:createProduit' %}" class="btn bg-default float-right  text-white" type="button"> Ajouter un produit </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table id="example" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Libellé</th>
+                        <th>Référence</th>
+                        <th>Prix de vente</th>
+                        <th>Catégorie</th>
+                        <th>Fournisseur</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for produit in produits %}
+                    <tr>
+                        <td><a href="{% url 'product:detailProduit' produit.id %}" style="text-decoration: none;" class="customColor">{{ produit.title   }}</a></td>
+                        <td>{{ produit.code_ref   }}</td>
+                        <td>{{ produit.price   }}</td>
+                        <td>{{ produit.categorie }}</td>
+                        <td>{{ produit.provider }}</td>
+                        <td><a href="{% url 'product:editProduit' produit.id %}" style="text-decoration: none;" class="text-success" ><i class="fa fa-edit mx-2"></i></a>
+                            <a href="{% url 'product:deleteProduit' produit.id %}" style="text-decoration: none;" class="text-danger" ><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+
+{% block script %}
+
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+
+<script src="{% static 'admin/js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+
+
+    $(document).ready(function() {
+       $('#example').DataTable( {
+    language: {
+        processing:     "Traitement en cours...",
+        search:         "Rechercher&nbsp;:",
+        lengthMenu:     "Afficher _MENU_ &eacute;l&eacute;ments",
+        info:           "Affichage de _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+        infoEmpty:      "Affichage de 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+        infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+        infoPostFix:    "",
+        loadingRecords: "Chargement en cours...",
+        zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+        emptyTable:     "Aucune donnée disponible dans le tableau",
+        paginate: {
+            first:      "Premier",
+            previous:   "Pr&eacute;c&eacute;dent",
+            next:       "Suivant",
+            last:       "Dernier"
+        },
+        aria: {
+            sortAscending:  ": activer pour trier la colonne par ordre croissant",
+            sortDescending: ": activer pour trier la colonne par ordre décroissant"
+        }
+    }
+} );
+    } );
+</script>
+
+<script>
+    setTimeout(function(){
+      if ($('#msg').length > 0) {
+        $('#msg').remove();
+      }
+     },5000)
+
+</script>
+
+{% endblock %}
+
+

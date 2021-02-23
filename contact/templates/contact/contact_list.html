@@ -1,0 +1,144 @@
+{% extends 'base_admin.html' %}
+{% block titre %} {{ block.super }} - Message {% endblock %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'vendor/css/dataTables.bootstrap4.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'contact/style.css' %}">
+{% endblock %}
+
+
+{% block fullcontent %}
+
+<div class="container">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <section class="msg-box mx-auto mt-4 mb-4*">
+         <div class="mail-box">
+                  <aside class="lg-side">
+                      <div class="inbox-head">
+                         <h3>Messages </h3>
+
+                          <form method="get" class="form-inline">
+                              <div class="form-check mb-2 mr-sm-2">
+                                  Lu {{ form.is_read }}
+                              </div>
+                              <div class="form-check mb-2 mr-sm-2">
+                                  Traité {{ form.is_treat }}
+                              </div>
+                              <div class="form-check mb-2 mr-sm-2">
+                                  Fini {{ form.is_finish }}
+                              </div>
+                             <div class="form-group">
+                                {{ form.tag }}
+                              </div>
+                              <div class="form-group">
+<!--                                {{ form.creat_at }}-->
+                              </div>
+
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                          </form>
+                      </div>
+                      <div class="inbox-body">
+                         <div class="mail-option">
+                             <div class="chk-all">
+                                 <input type="checkbox" class="mail-checkbox mail-group-checkbox">
+                                 <div class="btn-group">
+                                     <a data-toggle="dropdown" href="#" class="btn mini all" aria-expanded="false">
+                                         Tous
+                                         <i class="fa fa-angle-down "></i>
+                                     </a>
+                                     <ul class="dropdown-menu">
+                                         <li class="nav-item">
+                                            <a href="#" class="nav-link">Supprimer</a>
+                                        </li>
+                                         <li class="nav-item"><a href="#" class="nav-link">Modifier</a></li>
+                                         <li class="nav-item"><a href="#" class="nav-link">Marquer comme lu</a></li>
+                                     </ul>
+                                 </div>
+                             </div>
+
+                             <ul class="unstyled inbox-pagination">
+                                 <li><span> Page {{ contacts.number }} sur {{ contacts.paginator.num_pages }}</span></li>
+                                 <li>
+                                     <a class="np-btn" href=" {% if contacts.has_previous %}?page={{ contacts.previous_page_number }}{% endif %}"><i class="fa fa-angle-left pagination-right"></i></a>
+                                 </li>
+                                 <li>
+                                     <a class="np-btn {% if not contacts.has_next %} isDisabled{% endif %}" href="{% if contacts.has_next %}?page={{ contacts.next_page_number }}{% endif %}"><i class="fa fa-angle-right  pagination-left"></i></a>
+                                 </li>
+                             </ul>
+                         </div>
+                          <table class="table table-inbox table-hover">
+                            <tbody>
+                            {% for contact in contacts %}
+                              <tr class="{% if not contact.is_read %}unread{% endif %}">
+                                  <td class="inbox-small-cells">
+                                      <input type="checkbox" class="mail-checkbox">
+                                  </td>
+                                  <td class="view-message  dont-show"> <a href="{% url 'contact:detailContact' contact.id %}"  class="text-dark">{{ contact.Sujet }}</a></td>
+                                  <td class="view-message ">{{ contact.Email }} | {{ contact.Message   }}</td>
+                                  <td class="view-message  inbox-small-cells">
+                                    {% if contact.is_read and not contact.is_treat and not contact.is_finish or not contact.is_read and not contact.is_treat and not contact.is_finish%}
+                                    <span class="badge badge-danger">Non traiter</span>
+                                    {% elif contact.is_read and  contact.is_treat and not contact.is_finish %}
+                                    <span class="badge badge-primary">En cours</span>
+                                    {% elif contact.is_read and contact.is_treat and contact.is_finish %}
+                                    <span class="badge badge-success">Terminé</span>
+                                    {% else %}
+                                    {% endif %}</td>
+                                  <td class="view-message  text-right">{{ contact.Date_modification}}</td>
+                              </tr>
+                              {% endfor %}
+                          </tbody>
+                          </table>
+                      </div>
+                  </aside>
+              </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script src="{% static 'vendor/js/jquery.dataTables.min.js' %}"></script>
+
+<script src="{% static 'vendor/js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+
+    $(document).ready(function() {
+       $('#example').DataTable( {
+    language: {
+        processing:     "Traitement en cours...",
+        search:         "Rechercher&nbsp;:",
+        lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
+        info:           "Affichage de _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+        infoEmpty:      "Affichage de 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+        infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+        infoPostFix:    "",
+        loadingRecords: "Chargement en cours...",
+        zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+        emptyTable:     "Aucune donnée disponible dans le tableau",
+        paginate: {
+            first:      "Premier",
+            previous:   "Pr&eacute;c&eacute;dent",
+            next:       "Suivant",
+            last:       "Dernier"
+        },
+        aria: {
+            sortAscending:  ": activer pour trier la colonne par ordre croissant",
+            sortDescending: ": activer pour trier la colonne par ordre décroissant"
+        }
+    }
+} );
+    } );
+</script>
+{% endblock %}
+
+
